@@ -5,7 +5,7 @@
 - 지금 **실행 중인 세션**과 그 상태: 작업 중 / 내 차례 / 열려 있음
 - 닫힌 세션과 **2주 넘게 안 쓴 세션**(정리 후보)
 - 세션마다 제목, 프로젝트, 브랜치, 마지막 요청과 응답, 요청 수, 마지막 활동 시각
-- 닫힌 세션은 `재개 명령` 버튼으로 `cd <폴더> && claude --resume <id>` 를 복사
+- 닫힌 세션은 `재개 명령` 버튼으로 그 폴더에서 `claude --resume <id>` 하는 명령을 복사
 
 ## 실행
 
@@ -24,6 +24,19 @@ python3 tools/claude-sessions/claude_sessions.py
 | `--json` | 수집한 데이터를 JSON으로 출력 |
 
 Python 3.8 이상이면 되고, 따로 설치할 패키지는 없어요.
+
+### Windows
+
+1. 이 폴더를 통째로 `C:\Users\user\Documents\claude\claude-sessions` 에 둬요.
+2. `run-dashboard.bat` 을 더블클릭해요. 검은 창을 닫으면 대시보드도 꺼져요.
+
+PowerShell에서 직접 실행해도 돼요.
+
+```powershell
+py -3 C:\Users\user\Documents\claude\claude-sessions\claude_sessions.py
+```
+
+Python이 없다면 Microsoft Store나 python.org에서 설치하세요. 세션 기록은 기본으로 `C:\Users\<사용자>\.claude` 에서 읽고, 닫힌 세션의 `재개 명령` 버튼은 PowerShell에 붙여 넣을 수 있는 명령을 복사해요.
 
 ## 어디서 읽나요
 

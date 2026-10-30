@@ -217,6 +217,10 @@
     return dateFmt.format(t);
   };
   const shq = (p) => "'" + String(p).replace(/'/g, "'\\''") + "'";
+  // Windows 경로면 PowerShell용, 아니면 bash/zsh용 명령을 만든다
+  const resumeCmd = (cwd, id) => /^[A-Za-z]:[\\/]/.test(cwd)
+    ? `Set-Location -LiteralPath '${String(cwd).replace(/'/g, "''")}'; claude --resume ${id}`
+    : `cd ${shq(cwd)} && claude --resume ${id}`;
 
   const ST = { bucket: 'all', sort: 'urgency', dir: 1, q: '', project: '', entry: '', open: new Set() };
   let DATA = null, lastJson = '';
@@ -354,7 +358,7 @@
       const act = el('td');
       if (s.cwd && !s.live) {
         const cp = el('button', 'copy', '재개 명령');
-        const cmd = `cd ${shq(s.cwd)} && claude --resume ${s.id}`;
+        const cmd = resumeCmd(s.cwd, s.id);
         cp.title = cmd;
         cp.addEventListener('click', () => copyCmd(cp, cmd));
         act.append(cp);
